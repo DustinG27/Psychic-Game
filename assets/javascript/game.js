@@ -37,11 +37,11 @@ var Maxtries = 9;
 var secretLetter = [];
 
 var winsText = document.getElementById("wins-text");
+var userGuess = document.getElementById("user-guess");
 
 // generates a random letter for the computer
 
 var secretLetter = getRandomLetter();
-
 function getRandomLetter() {
   var random =
     computerChoices[Math.floor(Math.random() * computerChoices.length)];
@@ -49,21 +49,24 @@ function getRandomLetter() {
 }
 console.log(secretLetter);
 
-//  this is where the working game is
+//  starting the game with user input
 document.onkeyup = function(event) {
   userGuess = event.key;
+  // max tries will go down to 0, when it does it restarts
   Maxtries--;
   console.log(Maxtries);
+  // testing user guess to the secret letter
   if (userGuess === secretLetter) {
     wins++;
-    alert("You win! " + wins);
-
-    //
-    //    function displayOutput() {}
-    //
+    Maxtries = 9;
+    console.log("You win! " + wins);
   } else if (Maxtries === 0) {
     console.log("You lose");
     Maxtries = 9;
-  } 
+    loses++;
+    console.log(loses);
+  }
 };
-winsText.innerHTML = "wins " + wins;
+
+winsText.textContent = "wins " + wins;
+userGuess.textContent = "You guessed " + guessedLetters;
