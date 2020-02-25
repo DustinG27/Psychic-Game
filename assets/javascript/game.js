@@ -30,7 +30,7 @@ var computerChoices = [
 
 // variables to hold the number of wins, loses, guesses, and guess attempts
 var wins = 0;
-var loses = 0;
+var loses = 1;
 var counter = 0;
 var guessedLetters = [];
 var Maxtries = 9;
@@ -38,6 +38,7 @@ var secretLetter = [];
 
 var winsText = document.getElementById("wins-text");
 var userGuess = document.getElementById("user-guess");
+var lossesText = document.getElementById("losses-text");
 
 // generates a random letter for the computer
 
@@ -61,12 +62,15 @@ document.onkeyup = function(event) {
     Maxtries = 9;
     console.log("You win! " + wins);
   } else if (Maxtries === 0) {
-    console.log("You lose");
+    console.log("You lose " + loses);
     Maxtries = 9;
     loses++;
+    guessedLetters.length = 0;
     console.log(loses);
+    console.log(guessedLetters);
   }
 };
 
 winsText.textContent = "wins " + wins;
 userGuess.textContent = "You guessed " + guessedLetters;
+lossesText.textContent = "Lose: " + loses;
