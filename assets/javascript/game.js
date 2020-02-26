@@ -30,19 +30,55 @@ var computerChoices = [
 
 // variables to hold the number of wins, loses, guesses, and guess attempts
 var wins = 0;
-var loses = 1;
+var losses = 0;
 var counter = 0;
 var guessedLetters = [];
-var Maxtries = 9;
+var guessesLeft = 9;
 var secretLetter = [];
 
+// Create variables that hold references to the places in the HTML where we want to display things.
+
 var winsText = document.getElementById("wins-text");
-var userGuess = document.getElementById("user-guess");
+var userChoiceText = document.getElementById("user-Guess");
 var lossesText = document.getElementById("losses-text");
+var guessesText = document.getElementById("guess-left");
 
 // generates a random letter for the computer
 
 var secretLetter = getRandomLetter();
+
+function getRandomLetter() {
+  var random =
+    computerChoices[Math.floor(Math.random() * computerChoices.length)];
+  return random;
+}
+console.log(secretLetter);
+
+// when user clicks they will log their guess vs the secretLetter
+
+document.onkeyup = function(event) {
+  var userGuess = event.key;
+
+  if (userGuess === secretLetter) {
+    wins++;
+    console.log("you win " + wins);
+  } else {
+    guessedLetters++;
+    guessesLeft--;
+    console.log(guessesLeft);
+    if (guessesLeft === 0) {
+      losses++;
+      guessesLeft = 9;
+      console.log("you lose " + losses);
+    }
+  }
+
+  userChoiceText.textContent = "You guessed " + userGuess;
+  winsText.textContent = "wins: " + wins;
+  guessesText.textContent = "Guesses left: " + guessesLeft;
+  lossesText.textContent = "Losses: " + losses;
+};
+/*  var secretLetter = getRandomLetter();
 function getRandomLetter() {
   var random =
     computerChoices[Math.floor(Math.random() * computerChoices.length)];
@@ -74,3 +110,5 @@ document.onkeyup = function(event) {
 winsText.textContent = "wins " + wins;
 userGuess.textContent = "You guessed " + guessedLetters;
 lossesText.textContent = "Lose: " + loses;
+
+*/
